@@ -31,5 +31,45 @@ router.get("/", auth, async (req, res) => {
    }
 
 });
+router.put("/:id", auth, async (req, res) => {
+
+   try {
+
+      const updated = await EMR.findByIdAndUpdate(
+         req.params.id,
+         req.body,
+         { new: true }
+      );
+
+      res.json(updated);
+
+   } catch (err) {
+
+      res.status(500).json({
+         message: err.message
+      });
+
+   }
+
+});
+router.delete("/:id", auth, async (req, res) => {
+
+   try {
+
+      await EMR.findByIdAndDelete(req.params.id);
+
+      res.json({
+         message: "Deleted successfully"
+      });
+
+   } catch (err) {
+
+      res.status(500).json({
+         message: err.message
+      });
+
+   }
+
+});
 
 module.exports = router;
