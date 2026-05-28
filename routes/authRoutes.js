@@ -27,7 +27,14 @@ router.post("/register", async(req,res)=>{
          role
       });
 
-      res.status(201).json(user);
+      res.status(201).json({
+      
+   id: user._id,
+   name: user.name,
+   email: user.email,
+   role: user.role
+});
+
 
    }catch(err){
       res.status(500).json({message:err.message});
@@ -55,7 +62,7 @@ router.post("/login", async(req,res)=>{
       }
 
       const token = jwt.sign(
-         {id:user._id, role:user.role},
+         {id:user._id,name:user.name, role:user.role},
          process.env.JWT_SECRET,
          {expiresIn:"1d"}
       );

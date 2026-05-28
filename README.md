@@ -79,5 +79,30 @@ npm run dev
 
 ---
 
+## Test Commands
+
+### Start Server
+
+npm run dev
+
+### Register User
+
+POST /api/auth/register
+
+### Login User
+
+POST /api/auth/login
+
+### Create EMR
+
+POST /api/emr
+
+### Book Appointment
+
+POST /api/appointments
+
+### Create Prescription
+
+POST /api/prescriptions
 ## Author
 Sameeksha

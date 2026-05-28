@@ -24,7 +24,7 @@ router.post("/", auth, async (req, res) => {
    try {
 
       const appointment = await Appointment.create({
-         patient: req.user.id,
+         patient: req.user.name,
          doctor: req.body.doctor,
          date: req.body.date,
          time: req.body.time

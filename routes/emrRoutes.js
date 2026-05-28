@@ -14,10 +14,22 @@ router.post("/", auth, async(req,res)=>{
    }
 });
 
-router.get("/:id", auth, async(req,res)=>{
-   const emr = await EMR.findById(req.params.id);
+router.get("/", auth, async (req, res) => {
 
-   res.json(emr);
+   try {
+
+      const emrs = await EMR.find();
+
+      res.json(emrs);
+
+   } catch (err) {
+
+      res.status(500).json({
+         message: err.message
+      });
+
+   }
+
 });
 
 module.exports = router;
