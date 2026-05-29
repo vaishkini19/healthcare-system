@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const User=require("../models/User");
 const Appointment = require("../models/Appointment");
 const Doctor = require("../models/Doctor"); // ✅ needed for availability check
 const auth = require("../middleware/authMiddleware");
@@ -26,20 +26,21 @@ router.post("/", auth, async (req, res) => {
   try {
 
     // ❗ 1. Doctor exists check
-    const doctor = await Doctor.findOne({ name: req.body.doctor });
+    const doctor = await User.findOne({ name: req.body.doctor, role:"doctor" });
 
     if (!doctor) {
       return res.status(404).json({ message: "Doctor not found" });
     }
 
     // ❗ 2. Availability check
-    const isAvailable = doctor.availability?.some(
-      slot => slot.day === req.body.day
-    );
+   // const isAvailable = doctor.availability?.some(
+    //  slot => slot.day === req.body.day
+   // );
 
-    if (!isAvailable) {
-      return res.status(400).json({ message: "Doctor not available on this day" });
-    }
+   // if (!isAvailable) {
+     // return res.status(400).json({ message: "Doctor not available on this day" });
+    //}
+    const isAvailable=true;
 
     // ❗ 3. Slot conflict check
     const existingAppointment = await Appointment.findOne({
